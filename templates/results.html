@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результаты теста</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Результаты теста</h1>
+            <div class="student-info">
+                {{ session.last_name }} {{ session.first_name }}, группа {{ session.group }}
+            </div>
+        </header>
+        
+        <main>
+            <div class="result-card">
+                <h2>Ваш результат: {{ score }} из {{ max_score }}</h2>
+                <div class="score">
+                    {% set percentage = (score / max_score * 100) | int %}
+                    <div class="progress-bar">
+                        <!-- Исправленная строка: -->
+                        <div class="progress" id="progress-bar">{{ percentage }}%</div>
+                        
+                        <script>
+                            document.getElementById('progress-bar').style.width = "{{ percentage }}%";
+                        </script>
+                    </div>
+                </div>
+                
+                {% if score == max_score %}
+                <p class="success">Отличный результат! Вы отлично разбираетесь в цифровой безопасности!</p>
+                {% elif score >= max_score // 2 %}
+                <p class="warning">Хороший результат, но есть куда стремиться!</p>
+                {% else %}
+                <p class="error">Вам стоит изучить материалы еще раз.</p>
+                {% endif %}
+            </div>
+            
+            <div class="recent-results">
+                <h2>Последние результаты:</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Фамилия</th>
+                            <th>Имя</th>
+                            <th>Группа</th>
+                            <th>Результат</th>
+                            <th>Дата</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for result in recent_results %}
+                        <tr>
+                            <td>{{ result.last_name }}</td>
+                            <td>{{ result.first_name }}</td>
+                            <td>{{ result.group }}</td>
+                            <td>{{ result.score }}/{{ result.max_score }}</td>
+                            <td>{{ result.timestamp.strftime('%d.%m.%Y %H:%M') }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="actions">
+                <a href="{{ url_for('reset') }}" class="btn">Пройти заново</a>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Кафедра информационных технологий ПензГТУ &copy; 2023</p>
+        </footer>
+    </div>
+</body>
+</html>
