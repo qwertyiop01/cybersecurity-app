@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест по цифровой безопасности</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Тест по цифровой безопасности</h1>
+            <div class="student-info">
+                {{ session.last_name }} {{ session.first_name }}, группа {{ session.group }}
+            </div>
+        </header>
+        
+        <main>
+            <form method="POST" class="test-form">
+                {% for question in questions %}
+                <div class="question">
+                    <h3>Вопрос {{ loop.index }}: {{ question.text }}</h3>
+                    <div class="answers">
+                        {% for answer in question.answers %}
+                        <div class="answer">
+                            <input type="radio" 
+                                   id="{{ answer.id }}" 
+                                   name="q{{ question.id }}" 
+                                   value="{{ answer.id }}"
+                                   required>
+                            <label for="{{ answer.id }}">{{ answer.text }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+                
+                <div class="actions">
+                    <button type="submit" class="btn">Завершить тест</button>
+                </div>
+            </form>
+        </main>
+        
+        <footer>
+            <p>ПензГТУ, 2023</p>
+        </footer>
+    </div>
+</body>
+</html>

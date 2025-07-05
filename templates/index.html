@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Цифровая безопасность - ПензГТУ</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Обучающая платформа по цифровой безопасности</h1>
+            <h2>Пензенский государственный технологический университет</h2>
+        </header>
+        
+        <main>
+            <form method="POST" class="student-form">
+                <h2>Введите ваши данные</h2>
+                <div class="form-group">
+                    <label for="last_name">Фамилия:</label>
+                    <input type="text" id="last_name" name="last_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="first_name">Имя:</label>
+                    <input type="text" id="first_name" name="first_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="group">Группа:</label>
+                    <input type="text" id="group" name="group" required>
+                </div>
+                <button type="submit" class="btn">Начать обучение</button>
+            </form>
+        </main>
+        
+        <footer>
+            <p>&copy; 2023 ПензГТУ. Кафедра информационных технологий</p>
+        </footer>
+    </div>
+</body>
+</html>
